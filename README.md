@@ -10,5 +10,8 @@ This project is an experimental UI for [KSQL](https://github.com/confluentinc/ks
 
 The KSQL Experimental UI release artifact is pulled from github/release into KSQL as part of the packaging process.
 
+The webapp resources are bundled into the ksql-rest-app.jar as part of the ksql/rest packaging process. It is served as KSQL-REST endpoint resources.
 
+To enable/disable the UI edit ```ksql/config/ksqlserver.properties : ui.enabled=true|false```
 
+By default the REST endpoint runs on the ```ksqlserver.properties:listener port [8080]```

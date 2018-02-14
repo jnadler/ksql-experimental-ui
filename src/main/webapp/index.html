@@ -53,9 +53,11 @@
         <button class="command-button" onclick="sendRequest('/ksql', 'show queries;')">SHOW QUERIES</button>
         <button class="command-button" onclick="editor.setValue('CREATE STREAM MyStream (_time bigint, time varchar, name varchar, request varchar, status int) WITH (kafka_topic = \'kafka_topic\', value_format = \'json\');')">CREATE STREAM [...]</button>
         <button class="command-button" onclick="editor.setValue('CREATE TABLE events_per_min AS SELECT userid, COUNT(*) AS events FROM ksql_stream WINDOW TUMBLING (SIZE 10 SECONDS) GROUP BY userid;')">CREATE TABLE [...]</button>
-        <button class="command-button" onclick="editor.setValue('SELECT * from MyStream_OR_Table WHERE ;')">SELECT * FROM [...]</button>
-        <button class="command-button" onclick="editor.setValue('PRINT \'topic\';')">PRINT my_topic [...]</button>
-        <button class="command-button" onclick="editor.setValue('DESCRIBE EXTENDED MyStream_OR_Table;')">DESCRIBE EXTENDED [...]</button>
+        <button class="command-button" onclick="editor.setValue('SELECT * from MyStream_OR_Table WHERE ;')">SELECT * FROM [..]</button>
+        <button class="command-button" onclick="editor.setValue('PRINT \'topic\';')">PRINT my_topic [..]</button>
+        <button class="command-button" onclick="editor.setValue('DESCRIBE EXTENDED MyStream_OR_Table;')">DESCRIBE EXTENDED [..]</button>
+        <button class="command-button" onclick="editor.setValue('EXPLAIN MyQueryId;')">EXPLAIN MyQueryId [..]</button>
+
         <a class="link" href="https://github.com/confluentinc/ksql/blob/master/docs/syntax-reference.md#syntax-reference" target="_blank">
             View the syntax guide
         </a>

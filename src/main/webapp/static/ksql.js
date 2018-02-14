@@ -4,6 +4,11 @@ var xhr = new XMLHttpRequest();
 var renderFunction = renderTabular;
 var streamedResponse = false;
 
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
+
 function runCommand() {
     var sqlExpression = editor.getValue();
     var upperSqlExpression = sqlExpression.toUpperCase();
@@ -182,7 +187,6 @@ function getAutoColsAndRows(object) {
 }
 
 function renderTabularStatement(statementResponse) {
-
     var autoColAndRows;
     var columnHeaders, rowValues;
 
@@ -198,15 +202,12 @@ function renderTabularStatement(statementResponse) {
         autoColAndRows = getAutoColsAndRows(statementResponse.tables.tables)
     } else if (statementResponse.queries) {
         autoColAndRows = getAutoColsAndRows(statementResponse.queries.queries)
-        /**
-        TODO
-        **/
-
-        // look at response message formatting - i.e. table created etc.... instead of presenting json.... format nicelty
     } else if (statementResponse.error) {
-        var innerBody = statementResponse.error;
-        return innerBody.message;
-
+        return renderYaml(statementResponse)
+    } else if (statementResponse.description) {
+        return renderYaml(statementResponse)
+    } else if (statementResponse.currentStatus) {
+        return renderYaml(statementResponse)
     } else if (statementResponse.setProperty) {
         var innerBody = statementResponse.setProperty;
         columnHeaders = ['Property', 'Prior Value', 'New Value'];
@@ -291,7 +292,7 @@ function renderCompactJson(parsedBody) {
 }
 function renderYaml(parsedBody) {
     response.session.setMode("ace/mode/yaml");
-    return json2yaml(parsedBody);
+    return json2yaml(parsedBody).replaceAll("\\x20"," ").replaceAll("\\x2C",",").replaceAll("\\x3B",";").replaceAll("\\x27","'").replaceAll("\\x3A",":").replaceAll("\\x28","(").replaceAll("\\x29",")");
 }
 
 function updateFormat(newRenderFunction) {
