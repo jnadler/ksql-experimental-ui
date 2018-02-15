@@ -366,9 +366,9 @@ function getProperties() {
             for (var k = 0; k < propertySpanChildren.length; k++) {
                 var propertyInput = propertySpanChildren[k];
                 if (propertyInput.classList.contains('property-key')) {
-                    key = propertyInput.value;
+                    key = propertyInput.value.trim();
                 } else if (propertyInput.classList.contains('property-value')) {
-                    value = propertyInput.value;
+                    value = propertyInput.value.trim();
                 }
             }
         }
